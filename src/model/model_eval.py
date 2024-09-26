@@ -7,6 +7,9 @@ import os
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 import mlflow
 from dvclive import Live
+import dagshup
+dagshub.init(repo_owner='abdulghaffaransari', repo_name='water-potability-prediction', mlflow=True)
+
 
 def load_params(filepath: str) -> dict:
     """Load model parameters from a YAML file."""
@@ -57,7 +60,7 @@ def log_results(model_name: str, model, model_results: dict, params: dict):
 
     # Logging with MLflow
     with mlflow.start_run(run_name=f"{model_name} Evaluation"):
-        mlflow.set_tracking_uri("http://127.0.0.1:5000")
+        mlflow.set_tracking_uri("https://dagshub.com/abdulghaffaransari/water-potability-prediction.mlflow")
         for metric, value in model_results.items():
             mlflow.log_metric(metric.capitalize(), value)
         mlflow.log_param("Test Size", test_size)
