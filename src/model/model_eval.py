@@ -7,7 +7,7 @@ import os
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 import mlflow
 from dvclive import Live
-import dagshup
+import dagshub
 dagshub.init(repo_owner='abdulghaffaransari', repo_name='water-potability-prediction', mlflow=True)
 
 
