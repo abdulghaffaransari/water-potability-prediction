@@ -1,57 +1,46 @@
-Water-Portability-Prediction
-==============================
+# Water Potability Prediction
 
-Water portability Prediction using Machine Learning models
+## Project Description
+This project leverages advanced machine learning techniques to develop predictive models that assess the potability of water based on various chemical, physical, and biological features. By analyzing comprehensive datasets, our models aim to identify safe drinking water sources, ultimately contributing to public health and environmental sustainability. The integration of MLflow and DVC allows for streamlined model tracking and evaluation, ensuring reproducibility and effective monitoring of model performance. Through this initiative, we aspire to drive informed decision-making regarding water quality management and safety.
 
-Project Organization
-------------
+## Table of Contents
+- [Installation](#installation)
+- [Usage](#usage)
+- [Model Evaluation](#model-evaluation)
+- [Results](#results)
+- [Contributing](#contributing)
 
-    ├── LICENSE
-    ├── Makefile           <- Makefile with commands like `make data` or `make train`
-    ├── README.md          <- The top-level README for developers using this project.
-    ├── data
-    │   ├── external       <- Data from third party sources.
-    │   ├── interim        <- Intermediate data that has been transformed.
-    │   ├── processed      <- The final, canonical data sets for modeling.
-    │   └── raw            <- The original, immutable data dump.
-    │
-    ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
-    │
-    ├── models             <- Trained and serialized models, model predictions, or model summaries
-    │
-    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                         the creator's initials, and a short `-` delimited description, e.g.
-    │                         `1.0-jqp-initial-data-exploration`.
-    │
-    ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-    │
-    ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures        <- Generated graphics and figures to be used in reporting
-    │
-    ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-    │                         generated with `pip freeze > requirements.txt`
-    │
-    ├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
-    ├── src                <- Source code for use in this project.
-    │   ├── __init__.py    <- Makes src a Python module
-    │   │
-    │   ├── data           <- Scripts to download or generate data
-    │   │   └── make_dataset.py
-    │   │
-    │   ├── features       <- Scripts to turn raw data into features for modeling
-    │   │   └── build_features.py
-    │   │
-    │   ├── models         <- Scripts to train models and then use trained models to make
-    │   │   │                 predictions
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
-    │   │
-    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │       └── visualize.py
-    │
-    └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
+## Installation
+To set up the project, follow these steps:
 
+1. Clone the repository:
+   ```bash
+   git clone https://dagshub.com/abdulghaffaransari/water-potability-prediction.git
+   cd water-potability-prediction
+   ```
 
---------
+2. Install the required packages:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+## Usage
+1. Ensure you have your data pre-processed and saved in the `./src/data/processed/` directory.
+2. Update the `params.yaml` file with your model parameters.
+3. Run the evaluation script:
+   ```bash
+   python evaluate.py
+   ```
+
+## Model Evaluation
+The evaluation script assesses two machine learning models: Random Forest and Gradient Boosting. Metrics logged include accuracy, precision, recall, and F1-score, which are recorded using MLflow and DVC Live for real-time monitoring.
+
+## Results
+The evaluation results will be saved in `reports/metrics.json`. You can also view the metrics logged in MLflow for detailed analysis.
+
+## Contributing
+Contributions are welcome! Please feel free to submit a pull request or open an issue to discuss potential improvements.
+
+---
 
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
