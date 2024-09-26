@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/aa4aa0ff5b75499494511b921da03e1a/artifacts
+end_time: 1727359362526
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: aa4aa0ff5b75499494511b921da03e1a
+run_name: fearless-zebra-40
+run_uuid: aa4aa0ff5b75499494511b921da03e1a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1727359345800
+status: 4
+tags: []
+user_id: Abdul Ghaffar Ansari

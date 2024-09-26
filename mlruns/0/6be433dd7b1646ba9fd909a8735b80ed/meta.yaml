@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/6be433dd7b1646ba9fd909a8735b80ed/artifacts
+end_time: 1727360455631
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 6be433dd7b1646ba9fd909a8735b80ed
+run_name: capable-hawk-493
+run_uuid: 6be433dd7b1646ba9fd909a8735b80ed
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1727360439556
+status: 3
+tags: []
+user_id: Abdul Ghaffar Ansari

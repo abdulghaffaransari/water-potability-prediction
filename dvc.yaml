@@ -1,3 +1,52 @@
+# stages:
+#   data_collection:
+#     cmd: python src/data/data_collection.py
+#     deps:
+#     - src/data/data_collection.py
+#     params:
+#     - data_collection.test_size
+#     outs:
+#     - src/data/raw
+#   data_preprocessing:
+#     cmd: python src/data/data_prep.py
+#     deps:
+#     - src/data/data_prep.py
+#     - src/data/raw
+#     outs:
+#     - src/data/processed
+#   model_building:
+#     cmd: python src/model/model_building.py
+#     deps:
+#     - src/data/processed
+#     - src/model/model_building.py
+#     params:
+#     - model_building.n_estimators
+#     outs:
+#     - src/model/model.pkl
+#   data_evaluation:
+#     cmd: python src/model/model_eval.py
+#     deps:
+#     - src/model/model.pkl
+#     - src/model/model_eval.py
+#     metrics:
+#     - reports/metrics.json
+# params:
+# - dvclive/params.yaml
+# metrics:
+# - dvclive/metrics.json
+# plots:
+# - dvclive/plots/metrics:
+#     x: step
+
+
+
+
+
+
+
+
+
+
 stages:
   data_collection:
     cmd: python src/data/data_collection.py
@@ -21,15 +70,25 @@ stages:
     - src/model/model_building.py
     params:
     - model_building.n_estimators
+    - model_building.learning_rate
+    - model_building.max_depth
     outs:
-    - src/model/model.pkl
+    - src/model/random_forest_model.pkl
+    - src/model/gradient_boosting_model.pkl
   data_evaluation:
     cmd: python src/model/model_eval.py
     deps:
-    - src/model/model.pkl
+    - src/model/random_forest_model.pkl
+    - src/model/gradient_boosting_model.pkl
+    - src/data/processed/test_processed.csv  # Ensure this path is correct
     - src/model/model_eval.py
     metrics:
     - reports/metrics.json
+    params:
+    - data_collection.test_size
+    - model_building.n_estimators
+    - model_building.learning_rate
+    - model_building.max_depth
 params:
 - dvclive/params.yaml
 metrics:

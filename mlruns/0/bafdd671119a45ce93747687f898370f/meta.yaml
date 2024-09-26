@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/bafdd671119a45ce93747687f898370f/artifacts
+end_time: 1727364236837
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: bafdd671119a45ce93747687f898370f
+run_name: puzzled-dog-838
+run_uuid: bafdd671119a45ce93747687f898370f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1727364219100
+status: 3
+tags: []
+user_id: Abdul Ghaffar Ansari

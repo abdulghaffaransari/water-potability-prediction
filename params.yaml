@@ -1,5 +1,36 @@
+# data_collection:
+#     test_size: 0.20
+
+# model_building:
+#     n_estimators: 500
+
+
+# data_collection:
+#   test_size: 0.2
+
+# model_building:
+#   random_forest:
+#     n_estimators: 100
+#     max_depth: 10
+#   gradient_boosting:
+#     n_estimators: 150
+#     learning_rate: 0.1
+
 data_collection:
-    test_size: 0.15
+  test_size: 0.2  # Proportion of data to use for testing
 
 model_building:
-    n_estimators: 1000
+  n_estimators: 100  # Number of trees in the Random Forest
+  learning_rate: 0.1  # Learning rate for the Gradient Boosting model
+  max_depth: 3  # Maximum depth of the trees
+
+data_evaluation:  # Evaluation parameters section
+  threshold: 0.5  # Threshold for classifying as potable or not
+  metrics:        # List of metrics to evaluate
+    - accuracy
+    - precision
+    - recall
+    - f1_score
+
+dvclive:
+  save_dvc_exp: True

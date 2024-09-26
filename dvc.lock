@@ -9,11 +9,11 @@ stages:
       size: 2100
     params:
       params.yaml:
-        data_collection.test_size: 0.15
+        data_collection.test_size: 0.2
     outs:
     - path: src/data/raw
       hash: md5
-      md5: 6029019df2a1405faf48a22e0516b92d.dir
+      md5: c0c2d65c14a603e91e029fda3c344a5c.dir
       size: 522262
       nfiles: 2
   data_preprocessing:
@@ -25,48 +25,68 @@ stages:
       size: 1706
     - path: src/data/raw
       hash: md5
-      md5: 6029019df2a1405faf48a22e0516b92d.dir
+      md5: c0c2d65c14a603e91e029fda3c344a5c.dir
       size: 522262
       nfiles: 2
     outs:
     - path: src/data/processed
       hash: md5
-      md5: 7a5ead130c774ea097505b76482a7d20.dir
-      size: 546216
+      md5: 09d7d1468d5c1e6739769af7e3154438.dir
+      size: 546137
       nfiles: 2
   model_building:
     cmd: python src/model/model_building.py
     deps:
     - path: src/data/processed
       hash: md5
-      md5: 7a5ead130c774ea097505b76482a7d20.dir
-      size: 546216
+      md5: 09d7d1468d5c1e6739769af7e3154438.dir
+      size: 546137
       nfiles: 2
     - path: src/model/model_building.py
       hash: md5
-      md5: a096871b4e30738c48b067ce0b3b85d9
-      size: 2149
+      md5: e954459a1fa273e8ab41d1664836bcd8
+      size: 5475
     params:
       params.yaml:
-        model_building.n_estimators: 1000
+        model_building.learning_rate: 0.1
+        model_building.max_depth: 3
+        model_building.n_estimators: 100
     outs:
-    - path: src/model/model.pkl
+    - path: src/model/gradient_boosting_model.pkl
       hash: md5
-      md5: c3ad381147b4e593f762fd65cef726e8
-      size: 77728548
+      md5: 0279c94cf4838812ad643692b7bcaada
+      size: 131580
+    - path: src/model/random_forest_model.pkl
+      hash: md5
+      md5: e9a88ca231b5c079e9adc1a157928d8c
+      size: 7345427
   data_evaluation:
     cmd: python src/model/model_eval.py
     deps:
-    - path: src/model/model.pkl
+    - path: src/data/processed/test_processed.csv
       hash: md5
-      md5: c3ad381147b4e593f762fd65cef726e8
-      size: 77728548
+      md5: 6208ecb5989dd7b7e0031d379f3fd42d
+      size: 109438
+    - path: src/model/gradient_boosting_model.pkl
+      hash: md5
+      md5: 0279c94cf4838812ad643692b7bcaada
+      size: 131580
     - path: src/model/model_eval.py
       hash: md5
-      md5: 48c0a03f99cd24ee71762291029672a3
-      size: 3430
+      md5: 8dc1caf81ef70dd28ff818acf1ef7632
+      size: 8069
+    - path: src/model/random_forest_model.pkl
+      hash: md5
+      md5: e9a88ca231b5c079e9adc1a157928d8c
+      size: 7345427
+    params:
+      params.yaml:
+        data_collection.test_size: 0.2
+        model_building.learning_rate: 0.1
+        model_building.max_depth: 3
+        model_building.n_estimators: 100
     outs:
     - path: reports/metrics.json
       hash: md5
-      md5: a41545825cfb030b5e7121a09cb0625e
-      size: 144
+      md5: d9c9efba00df44490135c32c85c24177
+      size: 297

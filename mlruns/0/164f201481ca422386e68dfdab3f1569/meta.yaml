@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/164f201481ca422386e68dfdab3f1569/artifacts
+end_time: 1727364339000
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 164f201481ca422386e68dfdab3f1569
+run_name: Gradient Boosting Evaluation
+run_uuid: 164f201481ca422386e68dfdab3f1569
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1727364325777
+status: 3
+tags: []
+user_id: Abdul Ghaffar Ansari

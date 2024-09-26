@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/d58849595f4d4e9189ee34fd79e6b154/artifacts
+end_time: 1727365283253
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: d58849595f4d4e9189ee34fd79e6b154
+run_name: Random Forest Evaluation
+run_uuid: d58849595f4d4e9189ee34fd79e6b154
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1727365268605
+status: 3
+tags: []
+user_id: Abdul Ghaffar Ansari
