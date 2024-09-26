@@ -71,6 +71,7 @@ def log_results(model_name: str, model, model_results: dict, params: dict, X_tes
         # Infer signature from the test data
         signature = infer_signature(X_test, model.predict(X_test))
         mlflow.sklearn.log_model(model, f"{model_name}_model", signature=signature)
+        mlflow.log_artifact(__file__)
 
     # Logging with DVC Live
     with Live(save_dvc_exp=True) as live:
