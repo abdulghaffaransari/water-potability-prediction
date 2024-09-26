@@ -54,7 +54,7 @@ def evaluate_model(model, X: pd.DataFrame, y: pd.Series) -> dict:
         "f1_score": f1_score(y, predictions)
     }
 
-def log_results(model_name: str, model, model_results: dict, params: dict, X_test: pd.DataFrame):
+def log_results(model_name: str, model, model_results: dict, params: dict, X_test: pd.DataFrame, y_test: pd.Series):
     """Log evaluation results with MLflow and DVC Live."""
     test_size = params['data_collection']['test_size']
     n_estimators = params['model_building']['n_estimators']  # Load n_estimators
@@ -72,12 +72,20 @@ def log_results(model_name: str, model, model_results: dict, params: dict, X_tes
         signature = infer_signature(X_test, model.predict(X_test))
         mlflow.sklearn.log_model(model, f"{model_name}_model", signature=signature)
 
+        # Log datasets
+        X_train_path = './src/data/processed/train_processed.csv'  # Path to your training data
+        X_test_path = './src/data/processed/test_processed.csv'    # Path to your testing data
+        
+        mlflow.log_artifact(X_train_path, artifact_path='datasets/train')
+        mlflow.log_artifact(X_test_path, artifact_path='datasets/test')
+
     # Logging with DVC Live
     with Live(save_dvc_exp=True) as live:
         for metric, value in model_results.items():
             live.log_metric(metric.capitalize(), value)
         live.log_param("Test Size", test_size)
         live.log_param("n_estimators", n_estimators)  # Log n_estimators
+
 
 def save_metrics_to_json(metrics_path: str, rf_results: dict, gb_results: dict) -> None:
     """Save evaluation results to a JSON file."""
