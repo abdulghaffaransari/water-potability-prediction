@@ -73,8 +73,8 @@ stages:
       size: 131580
     - path: src/model/model_eval.py
       hash: md5
-      md5: ff8cd6217f8c8103f63d4f747190b0fd
-      size: 4418
+      md5: ddba5957ba5c810a43e2ceefaf0c133c
+      size: 4589
     - path: src/model/random_forest_model.pkl
       hash: md5
       md5: e9a88ca231b5c079e9adc1a157928d8c

@@ -1,4 +1,3 @@
-
 import pandas as pd
 import pickle
 import yaml
@@ -8,8 +7,10 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 import mlflow
 from dvclive import Live
 import dagshub
-dagshub.init(repo_owner='abdulghaffaransari', repo_name='water-potability-prediction', mlflow=True)
+from mlflow.models import infer_signature
 
+# Initialize DagsHub connection
+dagshub.init(repo_owner='abdulghaffaransari', repo_name='water-potability-prediction', mlflow=True)
 
 def load_params(filepath: str) -> dict:
     """Load model parameters from a YAML file."""
@@ -53,7 +54,7 @@ def evaluate_model(model, X: pd.DataFrame, y: pd.Series) -> dict:
         "f1_score": f1_score(y, predictions)
     }
 
-def log_results(model_name: str, model, model_results: dict, params: dict):
+def log_results(model_name: str, model, model_results: dict, params: dict, X_test: pd.DataFrame):
     """Log evaluation results with MLflow and DVC Live."""
     test_size = params['data_collection']['test_size']
     n_estimators = params['model_building']['n_estimators']  # Load n_estimators
@@ -61,11 +62,15 @@ def log_results(model_name: str, model, model_results: dict, params: dict):
     # Logging with MLflow
     with mlflow.start_run(run_name=f"{model_name} Evaluation"):
         mlflow.set_tracking_uri("https://dagshub.com/abdulghaffaransari/water-potability-prediction.mlflow")
+        
         for metric, value in model_results.items():
             mlflow.log_metric(metric.capitalize(), value)
         mlflow.log_param("Test Size", test_size)
         mlflow.log_param("n_estimators", n_estimators)  # Log n_estimators
-        mlflow.sklearn.log_model(model, f"{model_name}_model")
+        
+        # Infer signature from the test data
+        signature = infer_signature(X_test, model.predict(X_test))
+        mlflow.sklearn.log_model(model, f"{model_name}_model", signature=signature)
 
     # Logging with DVC Live
     with Live(save_dvc_exp=True) as live:
@@ -73,7 +78,6 @@ def log_results(model_name: str, model, model_results: dict, params: dict):
             live.log_metric(metric.capitalize(), value)
         live.log_param("Test Size", test_size)
         live.log_param("n_estimators", n_estimators)  # Log n_estimators
-
 
 def save_metrics_to_json(metrics_path: str, rf_results: dict, gb_results: dict) -> None:
     """Save evaluation results to a JSON file."""
@@ -100,12 +104,12 @@ def main():
         # Evaluate Random Forest model
         rf_model = load_model(rf_model_path)
         rf_results = evaluate_model(rf_model, X_test, y_test)
-        log_results("Random Forest", rf_model, rf_results, params)
+        log_results("Random Forest", rf_model, rf_results, params, X_test)
 
         # Evaluate Gradient Boosting model
         gb_model = load_model(gb_model_path)
         gb_results = evaluate_model(gb_model, X_test, y_test)
-        log_results("Gradient Boosting", gb_model, gb_results, params)
+        log_results("Gradient Boosting", gb_model, gb_results, params, X_test)
 
         # Save the evaluation results to a JSON file
         save_metrics_to_json(metrics_path, rf_results, gb_results)
